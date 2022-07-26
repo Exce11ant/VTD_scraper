@@ -1,1 +1,0 @@
-worker: python parser_vint.py
