@@ -1,7 +1,7 @@
 # VTD_scraper 
 
 Для прокси подойдет:
-IPV6 - 2a0f:e440:faa3:47a3:de5f:6bcf:4b3b:f302
+IPV6 - 2a&&:e&40:f&&3:4&&3:d&&f:6&&f:4&&b:f&&2
 
 https://proxy6.net/ - сайт для приобретения.
 
