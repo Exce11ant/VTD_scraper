@@ -11,9 +11,6 @@ bot = Bot(token=token)
 dp = Dispatcher(bot)
 ids_trash = []
 
-conn = sqlite3.connect('vinted_db_pl.db')
-cur = conn.cursor()
-
 
 @dp.message_handler(commands=['start'])
 async def start_command(message: types.Message):
