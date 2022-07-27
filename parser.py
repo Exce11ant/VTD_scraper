@@ -31,7 +31,7 @@ def get_item():
     webdriver.DesiredCapabilities.CHROME['acceptSslCerts'] = True
     rnd_ua = [useragent.google, useragent.chrome, useragent.firefox]
     chrome_options.add_argument(f"user-agent={random.choice(rnd_ua)}")
-    # chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-blink-features=AutomationControlled")
     proxies = [{"https": f"http://0bq5Ym:PL7wtt@45.153.20.231:10448"},
                {"https": f"http://0bq5Ym:PL7wtt@45.153.20.231:10447"}]
@@ -123,6 +123,7 @@ driver_h = webdriver.Chrome(
     executable_path=r"C:\Users\38095\PycharmProjects\pythonProject1\chromedriver\chromedriver.exe",
     seleniumwire_options=proxy_options,
     chrome_options=chrome_options)
+
 driver_h.get("https://www.vinted.pl/vetements?catalog[]=1904&order=newest_first")
 
 
