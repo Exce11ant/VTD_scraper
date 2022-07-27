@@ -33,8 +33,8 @@ def get_item():
     chrome_options.add_argument(f"user-agent={random.choice(rnd_ua)}")
     # chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-blink-features=AutomationControlled")
-    proxies = [{"https": f"http://YRKgwh:D9v9nK@45.153.20.234:14650"},
-               {"https": f"http://YRKgwh:D9v9nK@45.153.20.234:14649"}]
+    proxies = [{"https": f"http://0bq5Ym:PL7wtt@45.153.20.231:10448"},
+               {"https": f"http://0bq5Ym:PL7wtt@45.153.20.231:10447"}]
     proxy_options = {
         "proxy": random.choice(proxies)
     }
@@ -45,7 +45,8 @@ def get_item():
     )
     with hhd as d_head:
         d_head.get("https://www.vinted.pl/vetements?catalog[]=1904&order=newest_first")
-        d_head.get("https://www.vinted.pl/api/v2/catalog/items?catalog_ids=1904&color_ids=&brand_ids=&size_ids=&material_ids=&status_ids=&is_for_swap=0&order=newest_first&page=1&per_page=90")
+        d_head.get(
+            "https://www.vinted.pl/api/v2/catalog/items?catalog_ids=1904&color_ids=&brand_ids=&size_ids=&material_ids=&status_ids=&is_for_swap=0&order=newest_first&page=1&per_page=90")
         for json_url in d_head.requests:
             if json_url.url == 'https://www.vinted.pl/api/v2/catalog/items?catalog_ids=1904&color_ids=&brand_ids=&size_ids=&material_ids=&status_ids=&is_for_swap=0&order=newest_first&page=1&per_page=90':
                 body = decode(json_url.response.body, json_url.response.headers.get('Content-Encoding', 'identity'))
@@ -111,8 +112,8 @@ rnd_ua = [useragent.google, useragent.chrome, useragent.firefox]
 chrome_options.add_argument(f"user-agent={random.choice(rnd_ua)}")
 chrome_options.add_argument("--headless")
 
-proxies = [{"https": f"http://YRKgwh:D9v9nK@45.153.20.234:14650"},
-           {"https": f"http://YRKgwh:D9v9nK@45.153.20.234:14649"}]
+proxies = [{"https": f"http://0bq5Ym:PL7wtt@45.153.20.231:10448"},
+           {"https": f"http://0bq5Ym:PL7wtt@45.153.20.231:10447"}]
 
 chrome_options.add_argument("--disable-blink-features=AutomationControlled")
 proxy_options = {
@@ -123,6 +124,7 @@ driver_h = webdriver.Chrome(
     seleniumwire_options=proxy_options,
     chrome_options=chrome_options)
 driver_h.get("https://www.vinted.pl/vetements?catalog[]=1904&order=newest_first")
+
 
 def multi_work(url):
     driver_h.get(url=url)
@@ -147,7 +149,7 @@ def multi_work(url):
             meeting_transaction_count = body.get("user").get('meeting_transaction_count')
             print(country_title_local, negative_feedback_count, positive_feedback_count, neutral_feedback_count,
                   meeting_transaction_count)
-            connect_sql = sqlite3.connect('vinted_db_pl.db')
+            connect_sql = sqlite3.connect('vinted_db.db')
             cursor = connect_sql.cursor()
             if id_user not in id_users and country_title_local == pl and positive_feedback_count == 0 and neutral_feedback_count == 0 and meeting_transaction_count == 0 and negative_feedback_count == 0:
                 id_users.append(id_user)
@@ -160,6 +162,11 @@ def multi_work(url):
                         bodys = bodys.decode('utf-8')
                         bodys = json.loads(bodys)
                         first_items_url = bodys.get("items")[0].get('url')
+                        cursor.execute("CREATE TABLE IF NOT EXISTS vinted_page_users("
+                                       "id INTEGER PRIMARY KEY,"
+                                       "id_user	INTEGER NOT NULL UNIQUE,"
+                                       "prof_url TEXT,"
+                                       "get_url_chat TEXT)")
                         cursor.execute("""
                             INSERT OR IGNORE INTO vinted_page_users (id_user,prof_url,get_url_chat)
                             VALUES (?, ?, ?)

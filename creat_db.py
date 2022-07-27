@@ -18,8 +18,9 @@ cur = conn.cursor()
 @dp.message_handler(commands=['start'])
 async def start_command(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    keyboard.add(*start_buttons)
+    keyboard.row("Начать Работу")
     await message.answer("Выбери пункт !", reply_markup=keyboard)
+
 
 # После начала работы, каждые 30 секунд бот будет выдавать 10 последних обьявлений, если объявление уже было,
 # он его пропустит.
